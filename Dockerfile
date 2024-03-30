@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . .
 RUN npm install -g @angular/cli
 RUN npm install
-RUN npm run build
+#RUN npm run build
 
 FROM httpd:alpine3.15
 WORKDIR /usr/local/apache2/htdocs
