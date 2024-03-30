@@ -1,6 +1,11 @@
-FROM node:alpine
-WORKDIR /usr/src/app
-COPY . /usr/src/app/
-RUN npm install -g @angular/cli
+FROM node:17.0.1-alpine3.14 as angular
+WORKDIR /app
+COPY . .
+
 RUN npm install
-CMD ["ng","serve","--host","0.0.0.0"]
+RUN npm run build
+
+FROM httpd:alpine3.15
+WORKDIR /usr/local/apache2/htdocs
+COPY --from=angular /app/dist/my-shopping-app .
+#CMD ["ng","serve","--host","0.0.0.0"]
